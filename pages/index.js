@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import style, { isPadQueryString, loadingStyle } from "./index.style";
+import useMediaQuery from "./useMediaQuery";
 
 export const displayKeys = [
   "symbol",
@@ -27,20 +28,7 @@ const Home = () => {
       });
   }, []);
 
-  const [isMobile, setIsMobile] = useState(false);
-  function mqChange(mq) {
-    setIsMobile(mq.matches);
-  }
-
-  useEffect(() => {
-    const mq = window.matchMedia(isPadQueryString);
-    mq.addListener(mqChange);
-    mqChange(mq);
-
-    return () => {
-      mq.removeListener(mqChange);
-    };
-  }, []);
+  const isMobile = useMediaQuery(isPadQueryString);
 
   if (data.length === 0) {
     return (
